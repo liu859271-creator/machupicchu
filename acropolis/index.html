@@ -5,41 +5,50 @@
 <meta name="theme-color" content="#1c2b4a">
 <title>雅典衛城 · 第一人稱漫遊</title>
 <style>
+:root{--sat:env(safe-area-inset-top,0px);--sar:env(safe-area-inset-right,0px);--sab:env(safe-area-inset-bottom,0px);--sal:env(safe-area-inset-left,0px)}
 html,body{margin:0;height:100%;width:100%;position:fixed;inset:0;overflow:hidden;background:#eadcc3;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;overscroll-behavior:none;font-family:-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
 #c{position:fixed;left:0;top:0;width:100vw;height:100vh;height:100dvh;display:block;touch-action:none}
 @supports not (height:100dvh){#c{height:100%;bottom:0}}
 .ui{position:fixed;z-index:5}
 button{font:inherit;-webkit-tap-highlight-color:transparent}
-#top{top:calc(env(safe-area-inset-top) + 8px);right:calc(env(safe-area-inset-right) + 8px);display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:70vw}
-.tb{background:rgba(20,28,22,.62);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:7px 11px;font-size:14px;backdrop-filter:blur(4px)}
-body.land .tb{padding:5px 9px;font-size:13px}body.land #top{max-width:60vw;flex-wrap:nowrap}
+#top{top:calc(var(--sat) + 8px);right:calc(var(--sar) + 8px);display:flex;gap:6px;flex-wrap:nowrap;justify-content:flex-end;z-index:7}
+.tb{background:rgba(16,22,34,.82);color:#fff;border:1.5px solid rgba(255,255,255,.7);border-radius:12px;padding:8px 11px;font-size:15px;font-weight:600;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.45);text-shadow:0 1px 1px rgba(0,0,0,.4)}
+#bMenu{background:#d6a03c;color:#1a1208;border-color:#fff3d0;text-shadow:none}
+body.land .tb{padding:6px 10px;font-size:14px}
+@media (max-width:360px){.tb{padding:7px 8px;font-size:14px}}
 .tb:active,.rb:active{transform:scale(.92);filter:brightness(1.3)}
-.tb.on{background:rgba(214,160,60,.85);color:#1a1208}
-#label{top:calc(env(safe-area-inset-top) + 8px);left:calc(env(safe-area-inset-left) + 8px);max-width:min(360px,58vw);background:rgba(20,28,22,.66);color:#fff;border-radius:12px;padding:8px 11px;font-size:13px;line-height:1.45;opacity:0;transform:translateY(-6px);transition:.25s;pointer-events:none}
+.tb.on{background:#3d7fd6;border-color:#d8ecff}#bMenu.on{background:#d6a03c}
+#label{box-sizing:border-box;top:calc(var(--sat) + 8px);left:calc(var(--sal) + 8px);max-width:min(360px,58vw);background:rgba(20,28,22,.66);color:#fff;border-radius:12px;padding:8px 11px;font-size:13px;line-height:1.45;opacity:0;transform:translateY(-6px);transition:opacity .25s,transform .25s;pointer-events:none}
 #label.show{opacity:1;transform:none}
-@media (max-width:640px){#label{top:auto;bottom:calc(env(safe-area-inset-bottom) + 92px);left:calc(env(safe-area-inset-left) + 8px);right:calc(env(safe-area-inset-right) + 8px);max-width:none}#miniWrap{top:calc(env(safe-area-inset-top) + 96px)}}
+@media (max-width:640px){#label{top:auto;bottom:calc(var(--sab) + 92px);left:calc(var(--sal) + 8px);right:calc(var(--sar) + 8px);max-width:none}body.fly #label{bottom:calc(var(--sab) + 152px)}}
 #label b{font-size:16px;color:#ffd77a}#label span{opacity:.75;font-size:12px}#label p{margin:4px 0 0}
-#alt{left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom) + 6px);white-space:nowrap;color:#fff;font-size:11px;text-shadow:0 1px 2px #000;pointer-events:none}
-#mini{display:block;width:130px!important;height:130px!important}body.land #mini{width:min(150px,38vh)!important;height:min(150px,38vh)!important}
-#miniWrap{z-index:6;right:calc(env(safe-area-inset-right) + 8px);top:calc(env(safe-area-inset-top) + 52px);border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.4);box-shadow:0 2px 8px rgba(0,0,0,.35);pointer-events:none}
+#alt{left:50%;transform:translateX(-50%);bottom:calc(var(--sab) + 6px);white-space:nowrap;color:#fff;font-size:11px;text-shadow:0 1px 2px #000;pointer-events:none}
+#mini{display:block;width:min(130px,34vw)!important;height:min(130px,34vw)!important}body.land #mini{width:min(150px,36vh)!important;height:min(150px,36vh)!important}
+#miniWrap{z-index:6;border:2px solid rgba(255,255,255,.85)!important;right:calc(var(--sar) + 8px);top:calc(var(--sat) + 52px);border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.4);box-shadow:0 2px 8px rgba(0,0,0,.35);pointer-events:none}
 #hint{left:50%;top:38%;transform:translate(-50%,-50%);background:rgba(0,0,0,.6);color:#fff;padding:8px 14px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;text-align:center;max-width:80vw}
-#joy{left:calc(env(safe-area-inset-left) + 18px);bottom:calc(env(safe-area-inset-bottom) + 18px);width:110px;height:110px;box-sizing:border-box;border-radius:50%;background:rgba(255,255,255,.10);border:2px solid rgba(255,255,255,.35);pointer-events:none;opacity:.75}
+#joy{left:calc(var(--sal) + 18px);bottom:calc(var(--sab) + 18px);width:110px;height:110px;box-sizing:border-box;border-radius:50%;background:rgba(255,255,255,.10);border:2px solid rgba(255,255,255,.35);pointer-events:none;opacity:.75}
 #joy.act{background:rgba(255,255,255,.2);opacity:1}
 #knob{position:absolute;left:30px;top:30px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.75)}
-#act{right:calc(env(safe-area-inset-right) + 16px);bottom:calc(env(safe-area-inset-bottom) + 18px);display:flex;flex-direction:row;gap:12px;align-items:flex-end}
+#act{right:calc(var(--sar) + 16px);bottom:calc(var(--sab) + 18px);display:flex;flex-direction:row;gap:12px;align-items:flex-end}
+#flyCol{display:none;flex-direction:column;gap:10px}body.fly #flyCol{display:flex}body.fly #bJump{display:none}
+#flyCol .rb{width:66px;height:56px;padding:0;white-space:nowrap;border-radius:16px;font-size:15px;background:rgba(40,90,170,.72)}#flyCol .rb.on{background:rgba(120,190,255,.95);color:#06203f}
+@media (max-height:420px){#flyCol{gap:8px}#flyCol .rb{height:48px}}
 .rb{width:56px;height:56px;border-radius:50%;background:rgba(20,28,22,.55);color:#fff;border:2px solid rgba(255,255,255,.45);font-size:17px}
 .rb.on{background:rgba(214,160,60,.85);color:#1a1208}
-body.desk #joy,body.desk #act,body.desk #bGyro{display:none}
+body.desk #joy,body.desk #act,body.desk #bGyro{display:none}body.desk.fly #act{display:flex}body.desk.fly #bRun{display:none}
 #cross{left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:rgba(255,255,255,.75);box-shadow:0 0 2px #000;pointer-events:none;display:none}
 body.desk #cross{display:block}
 #lockHint{left:50%;bottom:22px;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;padding:6px 12px;border-radius:8px;font-size:13px;display:none;pointer-events:none}
 #menu{inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:8}
-#menu.show{display:flex}
-#menuBox{background:rgba(250,246,236,.97);border-radius:16px;padding:16px;width:min(340px,86vw);box-shadow:0 10px 30px rgba(0,0,0,.4)}
-#menuBox h3{margin:0 0 10px;font-size:18px;color:#3a2c18}
+#menu.show,#more.show{display:flex}
+#more{inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:8}
+#moreList{display:grid;grid-template-columns:1fr 1fr;gap:8px}#moreList .tb{font-size:15px;padding:11px 6px}
+#menuBox,#moreBox{max-height:calc(100% - 24px);overflow:auto;box-sizing:border-box}
+#menuBox,#moreBox{background:rgba(250,246,236,.97);border-radius:16px;padding:16px;width:min(340px,86vw);box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#moreBox h3,#menuBox h3{margin:0 0 10px;font-size:18px;color:#3a2c18}
 #menuList{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-#menuList button,#menuBox .wide{padding:11px 6px;border-radius:10px;border:1px solid #c9b48a;background:#fff;font-size:15px;color:#3a2c18}
-#menuBox .wide{width:100%;margin-top:10px;background:#efe4cc}
+#menuList button,#menuBox .wide,#moreBox .wide{padding:11px 6px;border-radius:10px;border:1px solid #c9b48a;background:#fff;font-size:15px;color:#3a2c18}
+#menuBox .wide,#moreBox .wide{width:100%;margin-top:10px;background:#efe4cc}
 #start{inset:0;z-index:10;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(20,36,70,.55),rgba(20,30,60,.88));color:#fff;overflow:auto}
 #start.show{display:flex}
 #sbox{max-width:520px;width:88vw;padding:22px 20px;text-align:center}
@@ -52,12 +61,13 @@ body.desk #cross{display:block}
 @media (max-height:500px){#sbox h1{font-size:30px}#sbox h2{margin-bottom:8px}.ins{font-size:13px;line-height:1.5;padding:7px 12px;margin-bottom:6px}#sbox{max-width:760px;padding:10px 16px}}
 #sensRow{margin-top:10px;font-size:14px;color:#3a2c18;display:flex;align-items:center;gap:8px}#sensRow input{flex:1}
 .small{font-size:12px;opacity:.7;margin-top:10px;line-height:1.5}
+@media (orientation:landscape){#menu #menuBox{width:min(620px,92vw)}#menu #menuList{grid-template-columns:repeat(5,1fr)}#menu #menuList button{padding:9px 4px;font-size:14px}}
 </style></head>
 <body>
 <canvas id="c"></canvas>
 <div id="label" class="ui"></div>
 <div id="top" class="ui">
-<button class="tb" id="bMenu">📍 地點</button><button class="tb" id="bMap">地圖</button><button class="tb" id="bGyro">陀螺儀</button><button class="tb" id="bShadow">陰影</button><button class="tb" id="bFS">全螢幕</button><button class="tb" id="bHelp">說明</button>
+<button class="tb" id="bMenu">📍 傳送地點</button><button class="tb" id="bMap">🗺 地圖</button><button class="tb" id="bFly">🕊 飛行</button><button class="tb" id="bMore" aria-label="更多">⚙</button>
 </div>
 <div id="miniWrap" class="ui"><canvas id="mini"></canvas></div>
 <div id="alt" class="ui"></div>
@@ -65,15 +75,17 @@ body.desk #cross{display:block}
 <div id="cross" class="ui"></div>
 <div id="lockHint" class="ui">點擊畫面鎖定滑鼠視角（Esc 釋放）</div>
 <div id="joy" class="ui"><div id="knob"></div></div>
-<div id="act" class="ui"><button class="rb" id="bJump">跳</button><button class="rb" id="bRun">跑</button></div>
-<div id="menu" class="ui"><div id="menuBox"><h3>📍 傳送到地點</h3><div id="menuList"></div>
+<div id="act" class="ui"><div id="flyCol"><button class="rb" id="bUp">▲上升</button><button class="rb" id="bDown">▼下降</button></div><button class="rb" id="bJump">跳</button><button class="rb" id="bRun">跑</button></div>
+<div id="menu" class="ui"><div id="menuBox"><h3>📍 傳送到地點</h3><div id="menuList"></div><button class="wide" id="menuClose">關閉</button>
+</div></div>
+<div id="more" class="ui"><div id="moreBox"><h3>⚙ 設定</h3><div id="moreList"><button class="tb" id="bGyro">陀螺儀</button><button class="tb" id="bShadow">陰影</button><button class="tb" id="bFS">全螢幕</button><button class="tb" id="bHelp">說明</button></div>
 <div id="sensRow">視角靈敏度 <input id="sens" type="range" min="0.4" max="2.5" step="0.1"> <span id="sensV">1.0</span></div>
-<button class="wide" id="bGLB">⬇ 下載場景模型 (.glb)</button><button class="wide" id="menuClose">關閉</button></div></div>
+<button class="wide" id="bGLB">⬇ 下載場景模型 (.glb)</button><button class="wide" id="moreClose">關閉</button></div></div>
 <div id="start" class="ui show"><div id="sbox">
 <h1>雅典衛城</h1><h2>ACROPOLIS · 西元前五世紀古希臘第一人稱漫遊</h2>
-<div class="ins"><b>手機</b>：左半邊拖曳＝移動（虛擬搖桿），右半邊拖曳＝轉動視角；左下角拇指一按就出現搖桿；右下角「跳」「跑」；上方「陀螺儀」可用轉動手機來看四周。<b>建議橫向持握</b>，「📍地點」裡可調視角靈敏度。</div>
-<div class="ins"><b>電腦</b>：W A S D 移動、滑鼠看四周（點擊畫面鎖定滑鼠）、Shift 跑、空白鍵 跳、M 開關地圖。</div>
-<div class="ins">從<b>泛雅典娜大階梯</b>下方出發，往前走穿過<b>山門</b>就上到衛城。用「📍 地點」可以直接傳送到帕德嫩神廟、神廟裡的雅典娜金象牙神像、少女柱廊、勝利女神廟、山下的古市集等處；靠近古蹟時會出現介紹。</div>
+<div class="ins"><b>手機</b>：左半邊拖曳＝移動（虛擬搖桿），右半邊拖曳＝轉動視角；左下角拇指一按就出現搖桿；右下角「跳」「跑」。右上角：<b>「📍 傳送地點」</b>一鍵傳送到各古蹟、<b>「🗺 地圖」</b>開關小地圖、<b>「🕊 飛行」</b>飛上天空（按住「▲上升」「▼下降」）、「⚙」裡有陀螺儀、陰影與視角靈敏度。</div>
+<div class="ins"><b>電腦</b>：W A S D 移動、滑鼠看四周（點擊畫面鎖定滑鼠）、Shift 跑、空白鍵 跳、M 開關地圖、F 開關飛行（飛行時空白鍵上升、Shift 或 C 下降）。</div>
+<div class="ins">從<b>泛雅典娜大階梯</b>下方出發，往前走穿過<b>山門</b>就上到衛城。用「📍 傳送地點」可以直接傳送到帕德嫩神廟、神廟裡的雅典娜金象牙神像、少女柱廊、勝利女神廟、山下的古市集等處；靠近古蹟時會出現介紹。</div>
 <div id="loading">正在建構場景…</div>
 <button id="go">開始探索</button>
 <div class="small">西元前 5 世紀末（伯里克里斯時代）的復原想像：建築剛完工時大理石潔白、雕刻與線腳塗上紅、藍、金色。依公開資料估計配置與比例（帕德嫩神廟 69.5 × 30.9 公尺、衛城頂約海拔 156 公尺），低面數示意模型，並非精確測繪。</div>
@@ -210,6 +222,7 @@ function entab(x0,x1,z0,z1,yA,H,o){o=o||{};const doric=o.doric!==false;const hA=
 function roofG(x0,x1,z0,z1,yE,axis,o){o=o||{};const slope=o.slope||0.24,ov=o.ov===undefined?0.35:o.ov,th=0.3;const tileT=o.tile||0xf0ece4;
  const A=axis==='x';const L0=A?x0:z0,L1=A?x1:z1,W0=A?z0:x0,W1=A?z1:x1,hw=(W1-W0)/2,cw=(W0+W1)/2,yR=yE+hw*slope;
  const P=A?(l,y,w)=>[l,y,w]:(l,y,w)=>[w,y,l];
+ solids.push({roof:true,A,x0:A?L0-ov:W0-0.25,x1:A?L1+ov:W1+0.25,z0:A?W0-0.25:L0-ov,z1:A?W1+0.25:L1+ov,top:-1e9,bot:yE-0.25*slope-0.1,ye:yE-0.25*slope+th,yR:yR+th,cw,hw:hw+0.25,_s:0});
  setHex(tileT);for(const ws of [W0,W1]){const we=ws+(ws<cw?-0.25:0.25),ye=yE-0.25*slope;hexa('tile',[P(L0-ov,ye,we),P(L1+ov,ye,we),P(L1+ov,yR,cw),P(L0-ov,yR,cw),P(L0-ov,ye+th,we),P(L1+ov,ye+th,we),P(L1+ov,yR+th,cw),P(L0-ov,yR+th,cw)],null,false);}
  if(o.ends===false)return yR;
  for(const [le,sg] of [[L0,1],[L1,-1]]){const tp=le+sg*(o.ped?0.6:0.05);if(o.ped){setHex(C.blue);face('paint',[P(tp,yE,W0+0.25),P(tp,yE,W1-0.25),P(tp,yR-0.12,cw)]);
@@ -478,8 +491,9 @@ const INST=[olives,cypress];for(const t of INST){t.castShadow=true;t.receiveShad
 function applyShadows(){renderer.shadowMap.enabled=shadowsOn;sun.castShadow=shadowsOn;scene.traverse(o=>{if(o.material){const ms=Array.isArray(o.material)?o.material:[o.material];ms.forEach(mm=>mm.needsUpdate=true);}});const b=document.getElementById('bShadow');if(b)b.classList.toggle('on',shadowsOn);}
 // ============ COLLISION / GROUND ============
 const HC=8,hash=new Map();for(const s of solids){for(let gx=Math.floor(s.x0/HC);gx<=Math.floor(s.x1/HC);gx++)for(let gz=Math.floor(s.z0/HC);gz<=Math.floor(s.z1/HC);gz++){const k=gx*100003+gz;let L=hash.get(k);if(!L){L=[];hash.set(k,L);}L.push(s);}}
-let lastBox=false;
-function ground(x,z){let h=terrainH(x,z);lastBox=false;const L=hash.get(Math.floor(x/HC)*100003+Math.floor(z/HC));if(L)for(let i=0;i<L.length;i++){const s=L[i];if(x>=s.x0&&x<=s.x1&&z>=s.z0&&z<=s.z1&&s.top>h){h=s.top;lastBox=true;}}return h;}
+let lastBox=false,gY=-1e9;
+function roofH(s,x,z){const w=s.A?z:x;return s.ye+(s.yR-s.ye)*Math.max(0,1-Math.abs(w-s.cw)/s.hw);}
+function ground(x,z){let h=terrainH(x,z);lastBox=false;const L=hash.get(Math.floor(x/HC)*100003+Math.floor(z/HC));if(L)for(let i=0;i<L.length;i++){const s=L[i];if(x>=s.x0&&x<=s.x1&&z>=s.z0&&z<=s.z1){if(s.roof){const rh=roofH(s,x,z);if(rh>h&&gY>=rh-0.6){h=rh;lastBox=true;}}else if(s.top>h){h=s.top;lastBox=true;}}}return h;}
 const RAD=0.36,RING=[];for(let k=0;k<8;k++)RING.push([Math.cos(k*Math.PI/4)*RAD,Math.sin(k*Math.PI/4)*RAD]);
 function ringMax(x,z){let m=ground(x,z),bx=lastBox;for(const [dx,dz] of RING){const h=ground(x+dx,z+dz);if(h>m){m=h;bx=lastBox;}}lastBox=bx;return m;}
 
@@ -498,37 +512,51 @@ const TP=[
  {n:'古市集',x:-400,z:-320,look:[-565,-62,-330],p:0.03},
  {n:'山腳仰望',x:-330,z:0,look:[-120,-2,0],p:0.1},
 ];
-function teleport(i){const t=TP[i];P.x=t.x;P.z=t.z;P.y=ground(P.x,P.z);resolve(P.x,P.z,P.y);P.x=RX;P.z=RZ;P.y=ground(P.x,P.z);P.vy=0;P.eyeY=P.y+EYE;P.yaw=Math.atan2(-(t.look[0]-t.x),-(t.look[2]-t.z));P.pitch=t.p;P.onGround=true;lastTP=i;}
+function teleport(i){const t=TP[i];gY=-1e9;if(P.fly){P.fly=false;document.body.classList.remove('fly');const bf=document.getElementById('bFly');if(bf)bf.classList.remove('on');}P.glide=false;P.x=t.x;P.z=t.z;P.y=ground(P.x,P.z);resolve(P.x,P.z,P.y);P.x=RX;P.z=RZ;P.y=ground(P.x,P.z);P.vy=0;P.eyeY=P.y+EYE;P.yaw=Math.atan2(-(t.look[0]-t.x),-(t.look[2]-t.z));P.pitch=t.p;P.onGround=true;lastTP=i;}
 let lastTP=0;
 let stamp=0,RX=0,RZ=0;
 function forNear(x,z,fn){const r=RAD+0.06;const gx0=Math.floor((x-r)/HC),gx1=Math.floor((x+r)/HC),gz0=Math.floor((z-r)/HC),gz1=Math.floor((z+r)/HC);stamp++;for(let gx=gx0;gx<=gx1;gx++)for(let gz=gz0;gz<=gz1;gz++){const L=hash.get(gx*100003+gz);if(!L)continue;for(let i=0;i<L.length;i++){const s=L[i];if(s._s===stamp)continue;s._s=stamp;fn(s);}}}
-function blocks(s,yf){return s.ceil?(yf+EYE+0.12>s.bot&&yf<s.bot):(s.top>yf+1.0);}
-function resolve(px,pz,yf){for(let it=0;it<6;it++){let any=false;forNear(px,pz,s=>{if(!blocks(s,yf))return;const cx=clamp(px,s.x0,s.x1),cz=clamp(pz,s.z0,s.z1);const dx=px-cx,dz=pz-cz,d2=dx*dx+dz*dz;if(d2>=RAD*RAD)return;any=true;if(d2>1e-10){const d=Math.sqrt(d2),k=(RAD-d)/d+1e-4;px+=dx*k;pz+=dz*k;}else{const l=px-s.x0,r=s.x1-px,b=pz-s.z0,t=s.z1-pz,m=Math.min(l,r,b,t);if(m===l)px=s.x0-RAD-1e-3;else if(m===r)px=s.x1+RAD+1e-3;else if(m===b)pz=s.z0-RAD-1e-3;else pz=s.z1+RAD+1e-3;}});if(!any)break;}RX=px;RZ=pz;}
-function penetrating(px,pz,yf,rad){const r2=(rad||RAD-0.01)**2;let bad=false;forNear(px,pz,s=>{if(bad||!blocks(s,yf))return;const cx=clamp(px,s.x0,s.x1),cz=clamp(pz,s.z0,s.z1);if((px-cx)**2+(pz-cz)**2<r2)bad=true;});return bad;}
+function blocks(s,yf,px,pz){if(s.roof){if(yf+EYE+0.12<=s.bot)return false;return roofH(s,clamp(px,s.x0,s.x1),clamp(pz,s.z0,s.z1))>yf+1.0;}return s.ceil?(yf+EYE+0.12>s.bot&&yf<s.bot):(s.top>yf+1.0);}
+function resolve(px,pz,yf){for(let it=0;it<6;it++){let any=false;forNear(px,pz,s=>{if(!blocks(s,yf,px,pz))return;const cx=clamp(px,s.x0,s.x1),cz=clamp(pz,s.z0,s.z1);const dx=px-cx,dz=pz-cz,d2=dx*dx+dz*dz;if(d2>=RAD*RAD)return;any=true;if(d2>1e-10){const d=Math.sqrt(d2),k=(RAD-d)/d+1e-4;px+=dx*k;pz+=dz*k;}else{const l=px-s.x0,r=s.x1-px,b=pz-s.z0,t=s.z1-pz,m=Math.min(l,r,b,t);if(m===l)px=s.x0-RAD-1e-3;else if(m===r)px=s.x1+RAD+1e-3;else if(m===b)pz=s.z0-RAD-1e-3;else pz=s.z1+RAD+1e-3;}});if(!any)break;}RX=px;RZ=pz;}
+function penetrating(px,pz,yf,rad){const r2=(rad||RAD-0.01)**2;let bad=false;forNear(px,pz,s=>{if(bad||!blocks(s,yf,px,pz))return;const cx=clamp(px,s.x0,s.x1),cz=clamp(pz,s.z0,s.z1);if((px-cx)**2+(pz-cz)**2<r2)bad=true;});return bad;}
 function tryStep(nx,nz){resolve(nx,nz,P.y);nx=RX;nz=RZ;const dd=Math.hypot(nx-P.x,nz-P.z);const h=ground(nx,nz),bx=lastBox,rise=h-P.y;let ok=rise<=0.02||(rise<=STEP&&(bx||!P.onGround||rise<=dd*1.15+0.02));if(ok&&penetrating(nx,nz,P.y))ok=false;if(ok){P.x=nx;P.z=nz;}return ok;}
+function flyStep(nx,nz){resolve(nx,nz,P.y);nx=RX;nz=RZ;gY=P.y;const h=ground(nx,nz);if(h-P.y>1.0)return false;const y=Math.max(P.y,h);if(penetrating(nx,nz,y))return false;P.x=nx;P.z=nz;P.y=y;return true;}
+function ceilClamp(y0,y1){let y=y1;forNear(P.x,P.z,s=>{if(!s.ceil&&!s.roof)return;const cx=clamp(P.x,s.x0,s.x1),cz=clamp(P.z,s.z0,s.z1);if((P.x-cx)**2+(P.z-cz)**2>=RAD*RAD)return;if(y0+EYE+0.12<=s.bot+0.02&&y+EYE+0.12>s.bot)y=s.bot-EYE-0.12;});return Math.max(y0,y);}
+const FLYMAX=150,FLYV=6;
 function freeAt(x,z,y){return !penetrating(x,z,y);}
 const keys={};const joy={x:0,y:0,active:false};let lookDX=0,lookDY=0;let jumpReq=false;
 function update(dt){
  let fw=0,st=0;if(keys.KeyW||keys.ArrowUp)fw+=1;if(keys.KeyS||keys.ArrowDown)fw-=1;if(keys.KeyD||keys.ArrowRight)st+=1;if(keys.KeyA||keys.ArrowLeft)st-=1;
  if(joy.active){fw+=-joy.y;st+=joy.x;}if(MP.autoWalk)fw+=1;
  const L=Math.hypot(fw,st);if(L>1){fw/=L;st/=L;}
- const running=P.run||keys.ShiftLeft||keys.ShiftRight;const sp=(running?7.5:3.2);
+ gY=P.y;const running=P.run||(!P.fly&&(keys.ShiftLeft||keys.ShiftRight));const sp=P.fly?(P.run?16:10):(running?7.5:3.2);
  // look
  if(gyro.on&&gyro.has){P.yaw=gyro.yaw+gyro.off;P.pitch=Math.max(-1.45,Math.min(1.45,gyro.pitch));}
  const sy=Math.sin(P.yaw),cy=Math.cos(P.yaw);let dx=(-sy*fw+cy*st)*sp*dt,dz=(-cy*fw-sy*st)*sp*dt;
  const d=Math.hypot(dx,dz);const n=Math.max(1,Math.ceil(d/0.08));dx/=n;dz/=n;
- for(let k=0;k<n;k++){if(!tryStep(P.x+dx,P.z+dz)){if(!(dx&&tryStep(P.x+dx,P.z)))if(dz)tryStep(P.x,P.z+dz);}}
+ const stepF=P.fly?flyStep:tryStep;
+ for(let k=0;k<n;k++){gY=P.y;if(!stepF(P.x+dx,P.z+dz)){if(!(dx&&stepF(P.x+dx,P.z)))if(dz)stepF(P.x,P.z+dz);}}
  P.x=Math.max(NX0+20,Math.min(NX1-20,P.x));P.z=Math.max(NZ0+20,Math.min(NZ1-20,P.z));
- const gh=ground(P.x,P.z);
+ if(P.fly){flyVert(dt);jumpReq=false;finishFrame(dt);return;}
+ gY=P.y;const gh=ground(P.x,P.z);
  if(jumpReq&&P.onGround){P.vy=5.2;P.onGround=false;}jumpReq=false;
- if(!P.onGround||P.y>gh+0.55||P.vy>0){P.onGround=false;P.vy-=G*dt;P.y+=P.vy*dt;if(P.y<=gh){P.y=gh;P.vy=0;P.onGround=true;}}
+ if(!P.onGround||P.y>gh+0.55||P.vy>0){P.onGround=false;P.vy-=G*dt;if(P.glide)P.vy=Math.max(P.vy,-9);P.y+=P.vy*dt;if(P.y<=gh){P.y=gh;P.vy=0;P.onGround=true;if(P.glide){P.glide=false;ui.hint('已降落',1000);}}}
  else{P.y=gh;P.vy=0;P.onGround=true;}
- if(P.vy>0||!P.onGround){forNear(P.x,P.z,s=>{if(!s.ceil)return;const cx=clamp(P.x,s.x0,s.x1),cz=clamp(P.z,s.z0,s.z1);if((P.x-cx)**2+(P.z-cz)**2<RAD*RAD&&P.y<s.bot&&P.y+EYE+0.12>s.bot){P.y=Math.max(ground(P.x,P.z),s.bot-EYE-0.12);if(P.vy>0)P.vy=0;}});}
+ if(P.vy>0||!P.onGround){forNear(P.x,P.z,s=>{if(!s.ceil&&!s.roof)return;const cx=clamp(P.x,s.x0,s.x1),cz=clamp(P.z,s.z0,s.z1);if((P.x-cx)**2+(P.z-cz)**2<RAD*RAD&&P.y<s.bot&&P.y+EYE+0.12>s.bot){P.y=Math.max(ground(P.x,P.z),s.bot-EYE-0.12);if(P.vy>0)P.vy=0;}});}
  if(penetrating(P.x,P.z,P.y)){resolve(P.x,P.z,P.y);if(!penetrating(RX,RZ,P.y)){P.x=RX;P.z=RZ;const g2=ground(P.x,P.z);if(P.y<g2)P.y=g2;}}
+ finishFrame(dt);}
+function flyVert(dt){let u=0;if(keys.Space||flyIn.up)u+=1;if(keys.ShiftLeft||keys.ShiftRight||keys.KeyC||flyIn.down)u-=1;const tv=u*FLYV*(P.run?1.6:1);P.vy+=(tv-P.vy)*Math.min(1,dt*5);
+ let ny=P.y+P.vy*dt;gY=P.y;const fl=ground(P.x,P.z);if(ny<fl){ny=fl;if(P.vy<0)P.vy=0;}if(ny>P.y)ny=ceilClamp(P.y,ny);if(ny>FLYMAX){ny=FLYMAX;if(P.vy>0)P.vy=0;}if(ny<=P.y&&P.vy>0)P.vy=0;P.y=ny;P.onGround=false;
+ if(penetrating(P.x,P.z,P.y)){resolve(P.x,P.z,P.y);if(!penetrating(RX,RZ,P.y)){P.x=RX;P.z=RZ;}}gY=P.y;const g2=ground(P.x,P.z);if(P.y<g2)P.y=g2;}
+const flyIn={up:false,down:false};
+function setFly(on){if(on===P.fly)return;P.fly=on;document.body.classList.toggle('fly',on);$('bFly').classList.toggle('on',on);flyIn.up=flyIn.down=false;$('bUp').classList.remove('on');$('bDown').classList.remove('on');
+ if(on){P.glide=false;P.onGround=false;P.vy=3;ui.hint(isTouch?'飛行：開　按住「上升／下降」改變高度':'飛行：開　空白鍵上升、Shift／C 下降、F 關閉',2200);}
+ else{P.vy=Math.min(P.vy,0);gY=P.y;const gh=ground(P.x,P.z);if(P.y>gh+0.3){P.glide=true;P.onGround=false;ui.hint('飛行：關　緩緩降落中…',1600);}else{P.glide=false;P.onGround=true;P.y=gh;ui.hint('飛行：關',900);}}}
+function finishFrame(dt){
  const target=P.y+EYE;P.eyeY+= (target-P.eyeY)*Math.min(1,dt*(P.onGround?14:40));if(!P.onGround)P.eyeY=target;
  camera.position.set(P.x,P.eyeY,P.z);camera.rotation.set(P.pitch,P.yaw,0);
  if(shadowsOn){sun.position.set(P.x+SO.x,P.y+SO.y,P.z+SO.z);sun.target.position.set(P.x,P.y,P.z);sun.target.updateMatrixWorld();}
- if(P.y<SEA+20)ui.hint('你已經走到海邊了，按「📍 地點」可傳送回衛城。',2500);
+ if(P.y<SEA+20)ui.hint('你已經走到海邊了，按「📍 傳送地點」可傳送回衛城。',2500);
 }
 
 // ============ INPUT ============
@@ -538,7 +566,7 @@ const gyro={on:false,has:false,yaw:0,pitch:0,off:0,base:null};
 async function toggleGyro(){const b=document.getElementById('bGyro');if(gyro.on){gyro.on=false;window.removeEventListener('deviceorientation',gyro.onEvt);b.classList.remove('on');return;}
  try{if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){const r=await DeviceOrientationEvent.requestPermission();if(r!=='granted'){ui.hint('未取得陀螺儀權限',2500);return;}}}catch(e){ui.hint('無法啟用陀螺儀：'+e.message,2500);return;}
  gyro.has=false;gyro.on=true;window.addEventListener('deviceorientation',gyro.onEvt);b.classList.add('on');ui.hint('陀螺儀已開啟：轉動手機看四周，右側拖曳可微調方向',2500);setTimeout(()=>{if(gyro.on&&!gyro.has)ui.hint('這台裝置沒有回傳陀螺儀資料',2500);},1500);}
-window.addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='Space'){jumpReq=true;e.preventDefault();}if(e.code==='KeyM')toggleMap();});
+window.addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='Space'){jumpReq=true;e.preventDefault();}if(e.code==='KeyM')toggleMap();if(e.code==='KeyF'&&!e.repeat)setFly(!P.fly);});
 window.addEventListener('keyup',e=>{keys[e.code]=false;});
 let started=false;
 canvas.addEventListener('click',()=>{if(started&&!isTouch&&canvas.requestPointerLock&&!Q.has('nolock'))canvas.requestPointerLock();});
@@ -565,9 +593,11 @@ function btn(id,fn){tapEl($(id),fn);}
 $('bJump').addEventListener('touchstart',e=>{e.preventDefault();e.stopPropagation();jumpReq=true;},{passive:false});$('bJump').addEventListener('click',()=>{jumpReq=true;});
 btn('bRun',()=>{P.run=!P.run;$('bRun').classList.toggle('on',P.run);ui.hint(P.run?'跑步：開':'跑步：關',800);});
 btn('bGyro',toggleGyro);
-btn('bMenu',()=>{$('menu').classList.toggle('show');});
+btn('bMenu',()=>{$('more').classList.remove('show');$('menu').classList.toggle('show');});btn('bMore',()=>{$('menu').classList.remove('show');$('more').classList.toggle('show');});btn('moreClose',()=>{$('more').classList.remove('show');});
+btn('bFly',()=>setFly(!P.fly));
+for(const [id,k] of [['bUp','up'],['bDown','down']]){const el=$(id);const on=e=>{e.preventDefault();e.stopPropagation();flyIn[k]=true;el.classList.add('on');},off=e=>{e.preventDefault();e.stopPropagation();flyIn[k]=false;el.classList.remove('on');};el.addEventListener('touchstart',on,{passive:false});el.addEventListener('touchend',off,{passive:false});el.addEventListener('touchcancel',off,{passive:false});el.addEventListener('mousedown',on);el.addEventListener('mouseup',off);el.addEventListener('mouseleave',off);}
 btn('bMap',toggleMap);btn('bShadow',()=>{shadowsOn=!shadowsOn;applyShadows();ui.hint(shadowsOn?'陰影：開（較耗效能）':'陰影：關',1500);});
-btn('bHelp',()=>{$('start').classList.add('show');$('go').textContent='繼續';});
+btn('bHelp',()=>{$('more').classList.remove('show');$('start').classList.add('show');$('go').textContent='繼續';});
 const ml=$('menuList');TP.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t.n;tapEl(b,()=>{teleport(i);$('menu').classList.remove('show');ui.hint('已傳送到：'+t.n,1500);});ml.appendChild(b);});
 btn('bGLB',()=>{const buf=exportGLB();const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([buf],{type:'model/gltf-binary'}));a.download='acropolis.glb';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},2000);});
 const fsEl=document.documentElement,canFS=!!(fsEl.requestFullscreen||fsEl.webkitRequestFullscreen);if(!canFS)$('bFS').style.display='none';
@@ -582,16 +612,18 @@ function setupMini(){const dpr=Math.min(2,window.devicePixelRatio||1);mm.width=M
  g.fillStyle='#6f7d45';{const M0=new T3.Matrix4(),pp=new T3.Vector3();for(const t of INST){for(let k=0;k<t.count;k++){t.getMatrixAt(k,M0);pp.setFromMatrixPosition(M0);g.fillRect(X(pp.x)-1.5,Y(pp.z)-1.5,3,3);}}}
  g.fillStyle='#b8664a';for(const r of HOUSES)g.fillRect(X(r[0]),Y(r[2]),(r[1]-r[0])*MS,(r[3]-r[2])*MS);
  const ps=plats.slice().sort((a,b)=>a.top-b.top);for(const p of ps){g.fillStyle=p.topBk==='marble'?'#f4efe4':'#d9c9a3';g.fillRect(X(p.x0),Y(p.z0),(p.x1-p.x0)*MS,(p.z1-p.z0)*MS);g.strokeStyle='rgba(0,0,0,0.18)';g.lineWidth=1;g.strokeRect(X(p.x0),Y(p.z0),(p.x1-p.x0)*MS,(p.z1-p.z0)*MS);}
- g.fillStyle='#5a4a38';for(const s of solids){if(s.ceil)continue;const w=s.x1-s.x0,d=s.z1-s.z0;if((w<2.2||d<2.2)&&s.top-terrainH((s.x0+s.x1)/2,(s.z0+s.z1)/2)<20)g.fillRect(X(s.x0),Y(s.z0),Math.max(1,w*MS),Math.max(1,d*MS));}
+ g.fillStyle='#5a4a38';for(const s of solids){if(s.ceil||s.roof)continue;const w=s.x1-s.x0,d=s.z1-s.z0;if((w<2.2||d<2.2)&&s.top-terrainH((s.x0+s.x1)/2,(s.z0+s.z1)/2)<20)g.fillRect(X(s.x0),Y(s.z0),Math.max(1,w*MS),Math.max(1,d*MS));}
  g.font=`bold ${Math.round(10*MS)}px sans-serif`;g.textAlign='center';for(const l of landmarks){const x=X(l.x),y=Y(l.z);g.fillStyle='#c0392b';g.beginPath();g.arc(x,y,2.5*MS,0,6.3);g.fill();g.strokeStyle='rgba(0,0,0,0.65)';g.lineWidth=3;g.strokeText(l.name,x,y-4*MS);g.fillStyle='#fff';g.fillText(l.name,x,y-4*MS);}}
-let mapOn=!isTouch||innerWidth>700;function toggleMap(){mapOn=!mapOn;ui.hint(mapOn?'地圖：開':'地圖：關',900);$('miniWrap').style.display=mapOn?'block':'none';$('bMap').classList.toggle('on',mapOn);}
+let mapOn=true;function toggleMap(){mapOn=!mapOn;ui.hint(mapOn?'地圖：開':'地圖：關',900);$('miniWrap').style.display=mapOn?'block':'none';$('bMap').classList.toggle('on',mapOn);layoutUI();}
 function placeMini(){const tb=$('top').getBoundingClientRect();$('miniWrap').style.top=Math.round(tb.bottom+6)+'px';}
-function drawMini(){if(!mapOn)return;placeMini();const W=mm.width,H=mm.height;const sw=VIEWM*MS,sx=(P.x-MB.x0)*MS-sw/2,sy=(P.z-MB.z0)*MS-sw/2;mctx.fillStyle='#8f9556';mctx.fillRect(0,0,W,H);mctx.drawImage(base,sx,sy,sw,sw,0,0,W,H);const k=W/MW;
+let luKey='';function layoutUI(){const tb=$('top').getBoundingClientRect(),lb=$('label');const land=VW>VH;const k=[VW,VH,Math.round(tb.left),Math.round(tb.bottom),land,mapOn].join();if(k===luKey)return;luKey=k;placeMini();
+ if(land){const L=parseFloat(getComputedStyle(lb).left)||8;lb.style.maxWidth=Math.max(150,Math.min(360,tb.left-L-10))+'px';}else lb.style.maxWidth='';}
+function drawMini(){layoutUI();if(!mapOn)return;placeMini();const W=mm.width,H=mm.height;gY=P.y;const agl=Math.max(0,P.y-ground(P.x,P.z));VIEWM+=(Math.min(900,300+agl*4)-VIEWM)*0.08;const sw=VIEWM*MS,sx=(P.x-MB.x0)*MS-sw/2,sy=(P.z-MB.z0)*MS-sw/2;mctx.fillStyle='#8f9556';mctx.fillRect(0,0,W,H);mctx.drawImage(base,sx,sy,sw,sw,0,0,W,H);const k=W/MW;
  mctx.save();mctx.translate(W/2,H/2);mctx.rotate(-P.yaw);mctx.fillStyle='#ffe14d';mctx.strokeStyle='#000';mctx.lineWidth=k;mctx.beginPath();mctx.moveTo(0,-8*k);mctx.lineTo(5.5*k,5.5*k);mctx.lineTo(0,2.5*k);mctx.lineTo(-5.5*k,5.5*k);mctx.closePath();mctx.fill();mctx.stroke();mctx.restore();
  mctx.fillStyle='rgba(0,0,0,0.55)';mctx.fillRect(0,0,28*k,15*k);mctx.fillStyle='#fff';mctx.font=`${10*k}px sans-serif`;mctx.textAlign='left';mctx.fillText('N ↑',4*k,11*k);}
 // landmark label
 let curMark=null;function updLabel(){let best=null,bd=1e9;for(const l of landmarks){const d=Math.hypot(l.x-P.x,l.z-P.z);if(d<l.r&&d<bd){bd=d;best=l;}}if(best!==curMark){curMark=best;const el=$('label');if(best){el.innerHTML=`<b>${best.name}</b> <span>${best.en}</span><p>${best.desc}</p>`;el.classList.add('show');document.body.classList.add('lab');}else{el.classList.remove('show');document.body.classList.remove('lab');}}
- $('alt').textContent='海拔約 '+Math.round(ALT0+P.y)+' m';}
+ let at='海拔約 '+Math.round(ALT0+P.y)+' m';if(P.fly||P.glide){gY=P.y;at+=' · 離地 '+Math.round(Math.max(0,P.y-ground(P.x,P.z)))+' m'+(P.y>=FLYMAX-0.01?'（最高）':'');}$('alt').textContent=at;}
 
 // ============ GLB EXPORT ============
 function exportGLB(){const parts=[];const tmp=new T3.Vector3(),nm=new T3.Matrix3();
@@ -615,7 +647,7 @@ let VW=0,VH=0;function viewSize(){const w=canvas.clientWidth||innerWidth,h=canva
 function resize(force){const [w,h]=viewSize();if(!force&&w===VW&&h===VH)return;VW=w;VH=h;renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=w>h?62:72;camera.updateProjectionMatrix();document.body.classList.toggle('land',w>h);document.body.classList.toggle('port',w<=h);}
 window.addEventListener('resize',()=>resize());window.addEventListener('orientationchange',()=>{resize();setTimeout(()=>resize(),250);setTimeout(()=>resize(),800);});
 if(window.visualViewport)visualViewport.addEventListener('resize',()=>resize());if(window.ResizeObserver)new ResizeObserver(()=>resize()).observe(canvas);resize(true);
-let last=performance.now(),fpsAcc=0,fpsN=0;const MP=window.MP={scene,camera,update,penetrating,solids,EYE,STEP,RAD,viewSize,P,teleport,TP,keys,joy,ground,autoWalk:false,fps:0,exportGLB,ready:false,info:{}};
+let last=performance.now(),fpsAcc=0,fpsN=0;const MP=window.MP={scene,camera,update,penetrating,solids,EYE,STEP,RAD,viewSize,P,teleport,TP,keys,joy,ground,autoWalk:false,fps:0,exportGLB,ready:false,info:{},setFly,flyIn,FLYMAX,mapState:()=>({mapOn,VIEWM})};
 function frame(now){const dt=Math.min(0.1,(now-last)/1000);last=now;fpsAcc+=dt;fpsN++;if(fpsAcc>1){MP.fps=fpsN/fpsAcc;fpsAcc=0;fpsN=0;if(Q.has('fps'))$('alt').textContent+=' · '+MP.fps.toFixed(0)+' fps';}
  resize();if(!MP.paused)update(dt);updLabel();drawMini();renderer.render(scene,camera);requestAnimationFrame(frame);}
 teleport(0);setupMini();if(!mapOn)$('miniWrap').style.display='none';$('bMap').classList.toggle('on',mapOn);applyShadows();
