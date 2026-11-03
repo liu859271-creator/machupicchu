@@ -18,3 +18,9 @@
 線上遊覽：https://liu859271-creator.github.io/machupicchu/acropolis/
 
 `acropolis/downloads/acropolis_dae.zip` 是可匯入 SketchUp 的 COLLADA 模型。在 SketchUp 選擇 **檔案 > 匯入 > COLLADA**，單位為公尺。
+
+## 黑露冒險
+
+線上遊玩：https://liu859271-creator.github.io/machupicchu/heilu/
+
+手機請橫向遊玩。
